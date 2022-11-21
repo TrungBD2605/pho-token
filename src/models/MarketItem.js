@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 
 const marketItemSchema = new mongoose.Schema({
-    itemId:Number,
+    itemId:{type: Number, index:{unique:true}},
+    categoryId:Number,
     nftContract:String,
     tokenId:Number,
     seller:String,
     owner:String,
     price:Number,
     sold:Boolean,
+    currencySell:Number,
     metadata:Object
 
 })

@@ -63,6 +63,7 @@ class EventMarket {
                                  owner:event.args.owner,
                                  price:event.args.price,
                                  sold:event.args.sold,
+                                 currencySell:event.args.sold.currencySell,
                                  metadata : metadata,
                                })
                                newMarketItem.save();
