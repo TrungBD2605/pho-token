@@ -17,6 +17,7 @@ class UserController {
                 username:req.body.username,
                 password:req.body.password,
                 address:addressWallet,
+                isAdmin:False
             });
             newUser.save(function(err){
                 if(err) res.json({result:false, data:"Save new user failed"})
@@ -30,7 +31,7 @@ class UserController {
             res.json({result:false, data:"Wrong parameters!"});
         }else{
             var web3 = new Web3(process.env.bnbstart_Testnet_Rpcurl);
-            var hash = Web3Utils.sha3("register")
+            var hash = Web3Utils.sha3("update")
             var addressWallet = web3.eth.accounts.recover(hash,req.body.signature);
             User.findOne({ username: req.body.username },function(err, user) {
                 if(err){

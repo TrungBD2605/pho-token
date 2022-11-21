@@ -34,12 +34,14 @@ class SynsMarketItemSale {
             }
             listItem.push(new MarketItem({
               itemId:item.itemId,
+              categoryId:item.categoryId,
               nftContract:item.nftContract,
               tokenId:item.tokenId,
               seller:item.seller,
               owner:item.owner,
               price:item.price,
               sold:item.sold,
+              currencySell: item.currencySell,
               metadata : metadata,
             }))
           } catch (error) {

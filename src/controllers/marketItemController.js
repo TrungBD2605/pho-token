@@ -21,6 +21,7 @@ class MarketItemController {
                         price:"$price",
                         sold:"$sold",
                         metadata:"$metadata",
+                        currencySell:"$currencySell",
                         history:"$history",
                         countLike:{$size:"$like"}
                     })
@@ -53,6 +54,7 @@ class MarketItemController {
                         price:"$price",
                         sold:"$sold",
                         metadata:"$metadata",
+                        currencySell:"$currencySell",
                         history:"$history",
                         countLike:{$size:"$like"}
                     }).match(matchObject).sort(sort).limit(req.body.limit).skip(parseInt(req.body.offset));
@@ -93,6 +95,7 @@ class MarketItemController {
                         owner:{"$last" : "$owner"},
                         price:{"$last" : "$price"},
                         sold:{"$last" : "$sold"},
+                        currencySell:{"$last" : "$currencySell"},
                         metadata:{"$last" : "$metadata"},
                     }
                     ).lookup(
@@ -105,6 +108,7 @@ class MarketItemController {
                         owner:"$owner",
                         price:"$price",
                         sold:"$sold",
+                        currencySell:"$currencySell",
                         metadata:"$metadata",
                         countLike:{$size:"$like"}
                     }).limit(req.body.limit).skip(parseInt(req.body.offset));
@@ -126,6 +130,7 @@ class MarketItemController {
                         owner:{"$last" : "$owner"},
                         price:{"$last" : "$price"},
                         sold:{"$last" : "$sold"},
+                        currencySell:{"$last" : "$currencySell"},
                         metadata:{"$last" : "$metadata"}
                     }
                     )
@@ -168,6 +173,7 @@ class MarketItemController {
                         owner:"$owner",
                         price:"$price",
                         sold:"$sold",
+                        currencySell:"$currencySell",
                         metadata:"$metadata",
                         countLike:{$size:"$like"}
                     }).limit(req.body.limit).skip(parseInt(req.body.offset));
