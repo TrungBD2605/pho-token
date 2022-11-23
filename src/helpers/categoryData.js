@@ -1,4 +1,4 @@
-const data = [
+ const data = [
 {
     "id":"1",
     "name":"Art"
@@ -24,3 +24,6 @@ const data = [
     "name":"Pho"
 },
 ]
+module.exports = {
+    category : data
+  }
