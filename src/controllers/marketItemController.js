@@ -231,7 +231,7 @@ class MarketItemController {
             query['sold'] =  req.body.sold;
         }
         if(req.body.categoryId){
-            query['categoryId'] =  categoryId
+            query['categoryId'] =  req.body.categoryId
         }
         return query
     }
