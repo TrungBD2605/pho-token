@@ -17,7 +17,7 @@ class UserController {
                 username:req.body.username,
                 password:req.body.password,
                 address:addressWallet,
-                isAdmin:False
+                isAdmin:false
             });
             newUser.save(function(err){
                 if(err) res.json({result:false, data:"Save new user failed"})
