@@ -23,6 +23,7 @@ class MarketItemController {
                         metadata:"$metadata",
                         currencySell:"$currencySell",
                         history:"$history",
+                        categoryId:"$categoryId",
                         countLike:{$size:"$like"}
                     })
                 return res.json(data)
@@ -56,6 +57,7 @@ class MarketItemController {
                         metadata:"$metadata",
                         currencySell:"$currencySell",
                         history:"$history",
+                        categoryId:"$categoryId",
                         countLike:{$size:"$like"}
                     }).match(matchObject).sort(sort).limit(req.body.limit).skip(parseInt(req.body.offset));
                 var countMarketItem = await MarketItem.countDocuments(matchObject)
@@ -95,6 +97,7 @@ class MarketItemController {
                         owner:{"$last" : "$owner"},
                         price:{"$last" : "$price"},
                         sold:{"$last" : "$sold"},
+                        categoryId:{"$last" : "$categoryId"},
                         currencySell:{"$last" : "$currencySell"},
                         metadata:{"$last" : "$metadata"},
                     }
@@ -110,6 +113,7 @@ class MarketItemController {
                         sold:"$sold",
                         currencySell:"$currencySell",
                         metadata:"$metadata",
+                        categoryId:"$categoryId",
                         countLike:{$size:"$like"}
                     }).limit(req.body.limit).skip(parseInt(req.body.offset));
                 var newdata = data.filter((item)=>{
@@ -130,6 +134,7 @@ class MarketItemController {
                         owner:{"$last" : "$owner"},
                         price:{"$last" : "$price"},
                         sold:{"$last" : "$sold"},
+                        categoryId:{"$last" : "$categoryId"},
                         currencySell:{"$last" : "$currencySell"},
                         metadata:{"$last" : "$metadata"}
                     }
@@ -175,6 +180,7 @@ class MarketItemController {
                         sold:"$sold",
                         currencySell:"$currencySell",
                         metadata:"$metadata",
+                        categoryId:"$categoryId",
                         countLike:{$size:"$like"}
                     }).limit(req.body.limit).skip(parseInt(req.body.offset));
                 var countMarketItem = await MarketItem.countDocuments({ seller: {"$regex": new RegExp(req.body.address.toLowerCase(), "i")}, sold : false})
@@ -223,6 +229,9 @@ class MarketItemController {
         }
         if(typeof req.body.sold  !== 'undefined'){
             query['sold'] =  req.body.sold;
+        }
+        if(req.body.categoryId){
+            query['categoryId'] =  categoryId
         }
         return query
     }
