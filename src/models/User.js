@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     password:{type: String},
     fullname:{type: String},
     address: {type: String, required: true, index:{unique:true}},
-    isAdmin:{type: Boolean, index:{unique:true}},
+    isAdmin:{type: Boolean},
 })
 
 userSchema.pre('save', function(next) {

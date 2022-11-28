@@ -6,8 +6,8 @@ class Resize {
   constructor(folder) {
     this.folder = folder;
   }
-  async save(buffer) {
-    const filename = Resize.filename();
+  async save(buffer , idNFT) {
+    const filename = Resize.filename(idNFT);
     const filepath = this.filepath(filename);
 
     await sharp(buffer)
@@ -19,9 +19,9 @@ class Resize {
     
     return filename;
   }
-  static filename() {
+  static filename(name) {
      // random file name
-    return `${uuidv4()}.png`;
+    return `${name}.png`;
   }
   filepath(filename) {
     return path.resolve(`${this.folder}/${filename}`)
