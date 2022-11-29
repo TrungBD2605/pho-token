@@ -48,6 +48,7 @@ class MetadataController {
         // call class Resize
         const fileUpload = new Resize(imagePath);
         const filename = await fileUpload.save(req.file.buffer, req.body.id);
+        await Metadata.findOneAndUpdate({ key: parseInt(req.body.id) },{image : `${process.env.domain}images/${req.body.id}.png`})
         return res.status(200).json({ name: filename });
     } catch (error) {
         res.status(400).json({error: error});
