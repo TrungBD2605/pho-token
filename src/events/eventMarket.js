@@ -16,9 +16,9 @@ class EventMarket {
     async getMetadata(item, provider){
         try {
             var metadata;
-            if(item.nftContract.toLowerCase()==process.env.bnbstart_SmartContractAddressNFTOwner.toLowerCase()){
+            if(item.nftContract.toLowerCase()===process.env.bnbstart_SmartContractAddressNFTOwner.toLowerCase()){
                 metadata =  await Island.findOne({ 'key': parseInt(item.tokenId) })
-            }else if(item.nftContract.toLowerCase()==process.env.bnbstart_SmartContractAddressNFTCustomer.toLowerCase()){
+            }else if(item.nftContract.toLowerCase()===process.env.bnbstart_SmartContractAddressNFTCustomer.toLowerCase()){
                 metadata = await Metadata.findOne({ 'key': parseInt( item.tokenId )})
             }
               else{
