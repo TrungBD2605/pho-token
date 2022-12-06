@@ -6,6 +6,7 @@ var axios = require("axios")
 var Island = require("../models/Island");
 var MarketItem = require("../models/MarketItem");
 const { ethers } = require("ethers");
+var Metadata = require("../models/Metadata");
 
 class EventMarket {
     init(){
@@ -15,13 +16,17 @@ class EventMarket {
     async getMetadata(item, provider){
         try {
             var metadata;
-            if(item.nftContract.toLowerCase()!==process.env.bnbstart_SmartContractAddressNFTOwner.toLowerCase()){
+            if(item.nftContract.toLowerCase()==process.env.bnbstart_SmartContractAddressNFTOwner.toLowerCase()){
+                metadata =  await Island.findOne({ 'key': parseInt(item.tokenId) })
+            }else if(item.nftContract.toLowerCase()==process.env.bnbstart_SmartContractAddressNFTCustomer.toLowerCase()){
+                metadata = await Metadata.findOne({ 'key': parseInt( item.tokenId )})
+            }
+              else{
                 const ERC721Contract = new ethers.Contract(item.nftContract, ERC721.abi, provider);
                 let tokenUri = await ERC721Contract.tokenURI(item.tokenId);
                 const res = await axios(tokenUri);
                 metadata = await res.data;
-              }else{
-                metadata =  await Island.findOne({ 'key': parseInt(item.tokenId) })
+                
               }
             return metadata;
         } catch (error) {
