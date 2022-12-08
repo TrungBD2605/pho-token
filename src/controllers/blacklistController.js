@@ -66,7 +66,7 @@ class BlackListController {
     async checkBlackList(req,res){
         try {
             if(this.isNumeric(req.params.itemId))
-            var blackList = await BlackList.find({'itemId':parseInt(req.params.id)});
+            var blackList = await BlackList.find({'itemId':parseInt(req.params.itemId)});
             if(blackList){
                 res.json({result:true});
             }else{
