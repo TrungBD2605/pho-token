@@ -232,7 +232,7 @@ class MarketItemController {
     isNumeric(val) {
         return /^-?\d+$/.test(val);
     }
-    matchQuery(req){
+    async matchQuery(req){
         var blackList = await BlackList.find();
         var listItemId = blackList.map(item=>item.itemId)
 
