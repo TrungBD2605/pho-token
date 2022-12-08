@@ -37,7 +37,9 @@ const refreshTokenSecret = process.env.ACCESS_TOKEN_REFRESH_SECRET || "PRIVATE-K
         refreshToken,
         userId: user._id,
         username:user.username,
-        address:user.address});
+        address:user.address,
+        isAdmin : user.isAdmin
+      });
     } catch (error) {
       return res.status(500).json(error);
     }
@@ -64,7 +66,9 @@ let refreshToken = async (req, res) => {
           accessToken,
           userId: userModel._id,
           username:userModel.username,
-          address:userModel.address});
+          address:userModel.address,
+          isAdmin: user.isAdmin
+        });
       } catch (error) {
         res.status(403).json({
           message: 'Invalid refresh token.',
