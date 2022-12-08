@@ -1,4 +1,5 @@
 var MarketItem = require("../models/MarketItem");
+var BlackList = require("../models/BlackList");
 
 class MarketItemController {
 
@@ -232,7 +233,12 @@ class MarketItemController {
         return /^-?\d+$/.test(val);
     }
     matchQuery(req){
-        var query = {}
+        var blackList = await BlackList.find();
+        var listItemId = blackList.map(item=>item.itemId)
+
+        var query = {
+            'itemId': { $nin: listItemId}
+        }
         if(req.body.name){
             query['metadata.name'] = {$regex: req.body.name, $options: 'i'}
         }
