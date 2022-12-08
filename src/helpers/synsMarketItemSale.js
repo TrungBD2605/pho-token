@@ -9,7 +9,7 @@ var Island = require("../models/Island");
 var EventMarket = require("../events/eventMarket");
 var EventNFT = require("../events/eventNftCustomer");
 const { ethers } = require("ethers");
-
+var Metadata = require("../models/Metadata");
 
 var axios = require("axios")
 class SynsMarketItemSale {
@@ -24,13 +24,16 @@ class SynsMarketItemSale {
         await Promise.all(listItemNFTSale.map(async(item) => {
           try {
             let metadata = {}
-            if(item.nftContract.toLowerCase()!==process.env.bnbstart_SmartContractAddressNFTOwner.toLowerCase()){
+            if(item.nftContract.toLowerCase()===process.env.bnbstart_SmartContractAddressNFTOwner.toLowerCase()){
+                metadata =  await Island.findOne({ 'key': parseInt( item.tokenId )})
+            }else if(item.nftContract.toLowerCase()===process.env.bnbstart_SmartContractAddressNFTCustomer.toLowerCase()){
+               metadata = await Metadata.findOne({ 'key': parseInt( item.tokenId )})
+            }
+            else{
               var ERC721Contract = new ethers.Contract(item.nftContract, ERC721.abi, provider);
               let tokenUri = await ERC721Contract.tokenURI(item.tokenId);
               const res = await axios(tokenUri);
               metadata = await res.data;
-            }else{
-              metadata =  await Island.findOne({ 'key': parseInt( item.tokenId )})
             }
             listItem.push(new MarketItem({
               itemId:item.itemId,

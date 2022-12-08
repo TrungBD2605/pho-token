@@ -11,7 +11,19 @@ class MarketItemController {
                 var data = await MarketItem.aggregate().match({ itemId: parseInt(req.params.id) }).lookup(
                     { from: 'likes', localField: 'itemId', foreignField: 'itemId', as: 'like' }
                     ).lookup(
-                        { from: 'marketitems', localField: 'tokenId', foreignField: 'tokenId', as: 'history' }
+                        { from: 'marketitems',
+                        let: { nftContract: "$nftContract", tokenId: "$tokenId"},
+                        pipeline: [                   {
+                            $match: {
+                                 $expr:{
+                                      $and:[
+                                           {$eq: ["$$nftContract","$nftContract"]},
+                                           {$eq:["$$tokenId", "$tokenId" ]}
+                                        ]
+                                 }
+                            },
+                       }
+                    ], as: 'history' }
                     ).project({
                         itemId:"$itemId",
                         nftContract:"$nftContract",
@@ -45,7 +57,19 @@ class MarketItemController {
                 var data = await MarketItem.aggregate().lookup(
                         { from: 'likes', localField: 'itemId', foreignField: 'itemId', as: 'like' }
                     ).lookup(
-                        { from: 'marketitems', localField: 'tokenId', foreignField: 'tokenId', as: 'history' }
+                        { from: 'marketitems',
+                        let: { nftContract: "$nftContract", tokenId: "$tokenId"},
+                        pipeline: [                   {
+                            $match: {
+                                 $expr:{
+                                      $and:[
+                                           {$eq: ["$$nftContract","$nftContract"]},
+                                           {$eq:["$$tokenId", "$tokenId" ]}
+                                        ]
+                                 }
+                            },
+                       }
+                    ], as: 'history' }
                     ).project({
                         itemId:"$itemId",
                         nftContract:"$nftContract",
