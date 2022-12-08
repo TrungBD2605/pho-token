@@ -5,7 +5,7 @@ const authMiddleware = require('../middkeware/AuthMiddleware');
 const authAdmin = require('../middkeware/IsAdmin');
 
 
-router.get('/get',blackListController.getBlackList)
+router.post('/get',blackListController.getBlackList.bind(blackListController))
 router.post('/add',authMiddleware.isAuth,authAdmin.isAdmin,blackListController.addBlackList)
 router.post('/remove',authMiddleware.isAuth,authAdmin.isAdmin,blackListController.removeBlackList)
 
